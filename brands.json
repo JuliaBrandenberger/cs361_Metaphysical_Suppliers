@@ -1,0 +1,38 @@
+[
+  {
+    "id": 123,
+    "name": "Amazon",
+    "products": ["tarot", "crystals", "smudge sticks", "runes", "oracle decks", "charcoal", "herbs", "books", "pendulums", "ouija boards"],
+    "eco-score": 1,
+    "popularity-score": 5
+  },
+  {
+    "id": 444,
+    "name": "Barnes and Noble",
+    "products": ["tarot", "oracle decks", "books"],
+    "eco-score": 3,
+    "popularity-score": 4
+  },
+  {
+    "id": 111,
+    "name": "Sacred Sisters",
+    "products": ["home decor", "tarot", "crystals", "smudge sticks", "runes", "candles", "herbs", "books", "pendulums", "ouija boards"],
+    "eco-score": 5,
+    "popularity-score": 1
+  },
+  {
+    "id": 222,
+    "name": "Home Goods",
+    "products": ["home decor", "crystals", "candles", "books"],
+    "eco-score": 1,
+    "popularity-score": 5
+  },
+  {
+    "id": 333,
+    "name": "The Secret Garden",
+    "products": ["crystals", "candles", "herbs"],
+    "eco-score": 4,
+    "popularity-score": 2
+  }
+
+]
