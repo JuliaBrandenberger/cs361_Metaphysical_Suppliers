@@ -12,8 +12,8 @@ interface RetailerInfo {
 type ProductType = "decks and books" | "elementals" | "divination" | "decoration";
 type Supplier = "Amazon" | "Barnes and Noble" | "Sacred Sisters" | "Home Goods" | "The Secret Garden"
 
-const retailers: RetailerInfo[] = data;
-// retailers[0] would give amazon object
+// retailers is an array of RetailerInfo, retailers[0] would give amazon object
+const retailers: RetailerInfo[] = data; 
 
 
 function handler(req: Request): Response {
@@ -28,7 +28,7 @@ function handler(req: Request): Response {
   // special handling when url set to "highest"
   switch (current_url.pathname) {
     case "/highest": {
-      // request method in a browser is always "GET" (when typing a url or clicking on a url)
+      // the request method in a browser is always "GET" (when typing a url or clicking on a url)
       if (req.method === "GET") {
         // find the highest and return the json objects 
         return highest();
@@ -38,7 +38,7 @@ function handler(req: Request): Response {
     }
     case "/product-type/decks-and-books": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
+        // find the retailers selling decks and books 
         return productType("decks and books");
       } else {
         return new Response("error", {status: 405});
@@ -46,7 +46,7 @@ function handler(req: Request): Response {
     }
     case "/product-type/elementals": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
+        // find the retailers selling elementals
         return productType("elementals");
       } else {
         return new Response("error", {status: 405});
@@ -54,7 +54,7 @@ function handler(req: Request): Response {
     }
     case "/product-type/divination": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
+        // find the retailers selling divination tools
         return productType("divination");
       } else {
         return new Response("error", {status: 405});
@@ -62,7 +62,7 @@ function handler(req: Request): Response {
     }
     case "/product-type/decoration": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
+        // find the retailers selling decorations
         return productType("decoration");
       } else {
         return new Response("error", {status: 405});
@@ -70,7 +70,6 @@ function handler(req: Request): Response {
     }
     case "/retailer/Amazon": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
         return supplier_data("Amazon");
       } else {
         return new Response("error", {status: 405});
@@ -78,7 +77,6 @@ function handler(req: Request): Response {
     }
     case "/retailer/Barnes-and-Noble": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
         return supplier_data("Barnes and Noble");
       } else {
         return new Response("error", {status: 405});
@@ -86,7 +84,6 @@ function handler(req: Request): Response {
     }
     case "/retailer/Sacred-Sisters": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
         return supplier_data("Sacred Sisters");
       } else {
         return new Response("error", {status: 405});
@@ -94,7 +91,6 @@ function handler(req: Request): Response {
     }
     case "/retailer/Home-Goods": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
         return supplier_data("Home Goods");
       } else {
         return new Response("error", {status: 405});
@@ -102,7 +98,6 @@ function handler(req: Request): Response {
     }
     case "/retailer/Secret-Garden": {
       if (req.method === "GET") {
-        // find the highest and return the json objects 
         return supplier_data("The Secret Garden");
       } else {
         return new Response("error", {status: 405});
@@ -207,8 +202,8 @@ if (import.meta.main) {
   }
   console.log(input);
   const port = parseInt(input[0])
-  // tells the server to run on 3000 rather than defaulting to 8000
-  // {port: port}, below is shorthand
+  // tells the server to run on 3000 (example) rather than defaulting to 8000
+  // {port: port}, below {port} is shorthand
   Deno.serve({port}, handler);
   // Deno.serve(
   //   { port: 3000},

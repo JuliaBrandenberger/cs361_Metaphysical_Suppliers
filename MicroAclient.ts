@@ -1,3 +1,4 @@
+// ask user to choose port
 const port = prompt("Choose your port (ex: 8000)");
 if (port) {
   if (isNaN(parseInt(port))) {
@@ -6,6 +7,7 @@ if (port) {
   }
 }
 
+// formulates a valid url
 function get_url(path1: string, path2: string | null): string {
   if (path1 === "highest") {
     return "http://localhost:"  + port + "/" + path1;
@@ -17,9 +19,11 @@ let url: URL;
 let pathpt1: string | null;
 let pathpt2: string | null;
 
+// ask user to choose between seeing highest eco scores, seeing brands by product types sold, or seeing stats for individual retailers
 pathpt1 = prompt("Choose between 'highest', 'product-type' or 'retailer'");
 if (pathpt1 === "highest") {
   pathpt2 = "";
+  // if path is 'highest', pathpt2 is not needed, returned as empty string
   url = new URL(get_url(pathpt1, pathpt2));
 } else if (pathpt1 === "product-type") {
   pathpt2 = prompt("Choose between 'decks-and-books', 'elementals', 'divination', 'decoration'");
@@ -40,13 +44,8 @@ if (pathpt1 === "highest") {
 
 
 url = new URL(get_url(pathpt1, pathpt2));
-// console.log(url)
-// to change the the defaults, send post request
-// set the url to a new value
-// url.searchParams.set("greeting", "greetings ");
+
 // sending request to server, our new url gets sent
 const resp = await fetch(url, {method: "GET"});
 console.log(await resp.json());
 
-// const resp = await fetch(baseurl + “/skincare_info?id=example_brand”,
-// {method: "GET"});
