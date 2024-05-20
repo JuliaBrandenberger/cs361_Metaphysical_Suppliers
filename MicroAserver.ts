@@ -10,12 +10,15 @@ interface RetailerInfo {
 }
 
 type ProductType = "decks and books" | "elementals" | "divination" | "decoration";
+type Supplier = "Amazon" | "Barnes and Noble" | "Sacred Sisters" | "Home Goods" | "The Secret Garden"
 
 const retailers: RetailerInfo[] = data;
 // retailers[0] would give amazon object
 
 
 function handler(req: Request): Response {
+  // takes a request and returns a response
+  console.log(`Received request at ${req.url}`)
   // checks that we have the path, the data and then dispatches to a function to handle that info
   const path = req.url;
   // get url object to use - gives access to its search parameters
@@ -65,6 +68,47 @@ function handler(req: Request): Response {
         return new Response("error", {status: 405});
       }
     }
+    case "/retailer/Amazon": {
+      if (req.method === "GET") {
+        // find the highest and return the json objects 
+        return supplier_data("Amazon");
+      } else {
+        return new Response("error", {status: 405});
+      }
+    }
+    case "/retailer/Barnes-and-Noble": {
+      if (req.method === "GET") {
+        // find the highest and return the json objects 
+        return supplier_data("Barnes and Noble");
+      } else {
+        return new Response("error", {status: 405});
+      }
+    }
+    case "/retailer/Sacred-Sisters": {
+      if (req.method === "GET") {
+        // find the highest and return the json objects 
+        return supplier_data("Sacred Sisters");
+      } else {
+        return new Response("error", {status: 405});
+      }
+    }
+    case "/retailer/Home-Goods": {
+      if (req.method === "GET") {
+        // find the highest and return the json objects 
+        return supplier_data("Home Goods");
+      } else {
+        return new Response("error", {status: 405});
+      }
+    }
+    case "/retailer/Secret-Garden": {
+      if (req.method === "GET") {
+        // find the highest and return the json objects 
+        return supplier_data("The Secret Garden");
+      } else {
+        return new Response("error", {status: 405});
+      }
+    }
+
     // default case
     default: {
       return new Response("error", {status: 404});
@@ -72,7 +116,7 @@ function handler(req: Request): Response {
   }
 }
 
-function highest() {
+function highest(): Response {
   // returns the response in form of json objects, returns retailers with eco score of 4 or more
   const highest_rets: RetailerInfo[] = []
   for (const retailer of retailers) {
@@ -82,6 +126,16 @@ function highest() {
   }
   // return the response with the objects in highest_rets
   return Response.json(highest_rets);
+}
+
+function supplier_data(supplier: Supplier ): Response {
+  name = supplier
+  for (const retailer of retailers) {
+    if (retailer.name == name) {
+      return Response.json(retailer)
+    }
+  }
+  return new Response("error", {status: 405});
 }
 
 function productType(type: ProductType): Response {
@@ -104,6 +158,9 @@ function productType(type: ProductType): Response {
     for (const retailer of retailers) {
       for (const item of retailer["products"]) { 
         if (item == "crystals" || item == "smudge sticks" || item == "herbs" || item == "charcoal" || item == "candles") {
+          if (return_array.includes(retailer)) {
+            continue;
+          }
           return_array.push(retailer);
         }
       }
@@ -113,6 +170,9 @@ function productType(type: ProductType): Response {
     for (const retailer of retailers) {
       for (const item of retailer["products"]) { 
         if (item == "runes" || item == "tarot" || item == "oracle decks" || item == "pendulums" || item == "ouija boards") {
+          if (return_array.includes(retailer)) {
+            continue;
+          }
           return_array.push(retailer);
         }
       }
@@ -122,6 +182,9 @@ function productType(type: ProductType): Response {
     for (const retailer of retailers) {
       for (const item of retailer["products"]) { 
         if (item == "home decor" || item == "candles" || item == "crystals") {
+          if (return_array.includes(retailer)) {
+            continue;
+          }
           return_array.push(retailer);
         }
       }
@@ -143,5 +206,13 @@ if (import.meta.main) {
     Deno.exit(1);
   }
   console.log(input);
-  Deno.serve(handler);
+  const port = parseInt(input[0])
+  // tells the server to run on 3000 rather than defaulting to 8000
+  // {port: port}, below is shorthand
+  Deno.serve({port}, handler);
+  // Deno.serve(
+  //   { port: 3000},
+  //   (_req) => new Response("Hello, world")
+  // );
+  // Deno.serve starts the server, you need to pass it a port if you want it to run on something other than default which is 8000
 }
